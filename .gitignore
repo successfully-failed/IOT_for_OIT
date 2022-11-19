@@ -1,2 +1,4 @@
 *.pyc
 *.pt
+videos/
+PoseModule\yolov7\yolov7-w6-pose.pt

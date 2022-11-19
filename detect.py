@@ -32,6 +32,7 @@ class detect:
         with torch.no_grad():
             cameras = []
             cam_list = self.check_available_cameras()
+            # cam_list = []
             for filename in os.listdir("videos/"):
                 if filename.endswith(".mp4"):
                     cam_list.append(f"videos/{filename}")
@@ -228,7 +229,7 @@ class detect:
                                 kx = abs(shouder_l_x - shouder_r_x)
                                 
                                 diff_x = abs(head_x-hip_x)
-                                diff_y = head_y-hip_y
+                                diff_y = hip_y - head_y
                                 diff_z = abs(head_z-hip_z)
 
                                 diff_x_list.append(diff_x)

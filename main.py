@@ -1,4 +1,6 @@
 from detect import detect as PoseDetect
+from analyser import is_standing
+
 import cv2
 
 cam_view = []
@@ -17,8 +19,19 @@ classes = False
 agnostic_nms = False
 line_thickness = 8
 empty = []
-p_detect = PoseDetect(weights_pose, view_img, imgsz, half_precision, kpt_label, device, conf_thres, iou_thres, classes,
-                      agnostic_nms, line_thickness)
+p_detect = PoseDetect(
+    weights_pose, 
+    view_img, 
+    imgsz, 
+    half_precision, 
+    kpt_label, 
+    device, 
+    conf_thres, 
+    iou_thres, 
+    classes, 
+    agnostic_nms, 
+    line_thickness
+)
 datasets = p_detect.setup()
 
 def start_detect():
@@ -27,8 +40,12 @@ def start_detect():
     kx_list = []
 
     for dataset in datasets:
-        img, mask_list, left_eye_zone, right_eyes, diff_x_list, diff_y_list, diff_z_list, kx_list, img0 = p_detect.detect2(
-                                dataset)
+        img, mask_list, left_eye_zone, right_eyes, diff_x_list, diff_y_list, diff_z_list, kx_list, img0 = p_detect.detect2(dataset)
+
+        # Process on persons:
+        for person in range(len(kx_list)):
+            if is_standing(kx_list[person], diff_y_list[person]): print('* STANDING!')
+
         img_list.append(img)
         mask_lists.append(mask_list)
         img0_list.append(img0)
@@ -37,5 +54,6 @@ def start_detect():
     cv2.imshow('image',img_list[0])
     cv2.waitKey(1)
     start_detect()
+
 start_detect()
  
