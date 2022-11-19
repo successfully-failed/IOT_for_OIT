@@ -209,10 +209,10 @@ class detect:
                                     (left_shouder_y < right_hand_y < right_hip_y):
                                     h_y = True
 
+                                stomachache = False
                                 if h_x and h_y:
-                                    print("Stomachache")
-                                else: print("No Stomachache")
-
+                                    stomachache = True
+                                
 
                                 head_x, head_y, head_z = int(
                                     kpts[step * 1]), int(kpts[step * 1 + 1]), kpts[step * 1 + 2]
@@ -240,7 +240,7 @@ class detect:
                                 # Entire body:
                                 plot_one_box(xyxy, im0, label=label, color=colors(c, True), line_thickness=self.line_thickness, kpt_label=self.kpt_label, kpts=kpts, steps=3, orig_shape=im0.shape[:2])
 
-                        return im0, mask_list, left_eyes, right_eyes, diff_x_list, diff_y_list, diff_z_list, kx_list, im0s
+                        return im0, mask_list, left_eyes, right_eyes, diff_x_list, diff_y_list, diff_z_list, kx_list, stomachache, im0s
 
     @staticmethod
     def check_available_cameras():

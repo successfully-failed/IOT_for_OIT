@@ -41,14 +41,17 @@ def start_detect():
     kx_list = []
 
     for dataset in datasets:
-        img, mask_list, left_eye_zone, right_eye_zone, diff_x_list, diff_y_list, diff_z_list, kx_list, img0 = p_detect.detect2(dataset)
+        img, mask_list, left_eye_zone, right_eye_zone, diff_x_list, diff_y_list, diff_z_list, kx_list, stomachache, img0 = p_detect.detect2(dataset)
 
         # Process on persons:
         for person in range(len(kx_list)):
             if detector.is_standing(kx_list[person], diff_y_list[person]): print('* STANDING!')
+            detector.eye_detector(left_eye_zone[person], right_eye_zone[person])
         
-        if left_eye_zone != empty:
-            detector.eye_detector(left_eye_zone[0], right_eye_zone[0])
+
+        if stomachache:
+            print("Stomachache")
+        
 
         img_list.append(img)
         mask_lists.append(mask_list)
