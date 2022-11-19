@@ -32,10 +32,10 @@ class detect:
         with torch.no_grad():
             cameras = []
             cam_list = self.check_available_cameras()
-            cam_list = [] # - Starting only one camera
-            for filename in os.listdir("videos/"):
-                if filename.endswith(".mp4"):
-                    cam_list.append(f"videos/{filename}")
+            # cam_list = [] # - Starting only one camera
+            # for filename in os.listdir("videos/"):
+            #     if filename.endswith(".mp4"):
+            #         cam_list.append(f"videos/{filename}")
 
             set_logging()
             self.device = select_device(self.device)
@@ -108,6 +108,7 @@ class detect:
                     diff_z_list = []
                     kx_list = []
                     stomachache = False
+                    drip_zone_list = []
 
                     for i, det in enumerate(pred):
                         if isinstance(dataset, LoadStreams):
@@ -236,10 +237,19 @@ class detect:
                                 diff_z_list.append(diff_z)
                                 kx_list.append(kx)
 
+                                #drip_point = (right_hand_x, right_hand_y)
+                                drip_start_x, drip_end_x = int(right_hand_x-10), int(right_hand_x+10)
+                                drip_start_y, drip_end_y = int(right_hand_y-10), int(right_hand_y+10)
+                                drip_zone = im1[drip_start_y: drip_end_y,
+                                                    drip_start_x:drip_end_x]
+                                drip_zone_list.append(drip_zone)
+                                cv2.rectangle(im0, (drip_start_x, drip_start_y), (drip_end_x, drip_end_y), color=(
+                                    0, 255, 255), thickness=2)
+
                                 # Entire body:
                                 plot_one_box(xyxy, im0, label=label, color=colors(c, True), line_thickness=self.line_thickness, kpt_label=self.kpt_label, kpts=kpts, steps=3, orig_shape=im0.shape[:2])
 
-                        return im0, mask_list, left_eyes, right_eyes, diff_x_list, diff_y_list, diff_z_list, kx_list, stomachache, im0s
+                        return im0, mask_list, left_eyes, right_eyes, diff_x_list, diff_y_list, diff_z_list, kx_list, stomachache, drip_zone_list, im0s
 
     @staticmethod
     def check_available_cameras():
