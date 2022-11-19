@@ -1,5 +1,4 @@
 from detect import detect as PoseDetect
-from analyser import is_standing
 from detector import Detector
 
 import cv2
@@ -46,7 +45,7 @@ def start_detect():
 
         # Process on persons:
         for person in range(len(kx_list)):
-            if is_standing(kx_list[person], diff_y_list[person]): print('* STANDING!')
+            if detector.is_standing(kx_list[person], diff_y_list[person]): print('* STANDING!')
         
         if left_eye_zone != empty:
             detector.eye_detector(left_eye_zone[0], right_eye_zone[0])
