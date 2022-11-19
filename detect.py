@@ -86,7 +86,7 @@ class detect:
             i = 0
             for path, img, im0s, vid_cap in dataset:
                 i += 1
-                if i % 5 == 0:
+                if i % 20 == 0:
                     img = torch.from_numpy(img).to(self.device)
                     img = img.half() if self.half else img.float()
                     img /= 255.0
@@ -201,8 +201,8 @@ class detect:
                                 right_hand_x, right_hand_y = kpts[step * 10], kpts[step * 10 + 1]
 
                                 h_x, h_y = False, False
-                                if (left_shouder_x > left_hand_x > right_hip_x) and \
-                                    (left_shouder_x > right_hand_x > right_hip_x):
+                                if (left_shouder_x+(left_shouder_x-right_shouder_x)*0.2 > left_hand_x > right_hip_x) and \
+                                    (left_shouder_x > right_hand_x > right_hip_x-(left_shouder_x-right_hip_x)*0.2):
                                     h_x = True
 
                                 if (left_shouder_y < left_hand_y < right_hip_y) and \

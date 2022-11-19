@@ -4,6 +4,9 @@ import datetime
 
 import cv2
 
+# Settings
+interval = 5
+
 cam_view = []
 cam_list = []
 cam_nr = 0
@@ -36,35 +39,42 @@ p_detect = PoseDetect(
 datasets = p_detect.setup()
 detector = Detector()
 
-def start_detect():
+def start_detect(standings, stomachaches, wait_to_standings, wait_to_stomachaches):
     img_list, mask_lists, img0_list = [], [], []
     diff_x_list, diff_y_list, diff_z_list = [], [], []
     kx_list = []
 
-    standings = 0
-    stomachaches = 0
-
     for dataset in datasets:
         img, mask_list, left_eye_zone, right_eye_zone, diff_x_list, diff_y_list, diff_z_list, kx_list, stomachache, img0 = p_detect.detect2(dataset)
-
         # Process on persons:
-        for person in range(len(kx_list)):
-            if detector.is_standing(kx_list[person], diff_y_list[person]): 
-                standings += 1
-            else:
-                standings = 0
+        if len(kx_list) == 1:
+            if datetime.datetime.now().timestamp() >= wait_to_standings:
+                if detector.is_standing(kx_list[0], diff_y_list[0]):
+                    print('Standing!')
+                    standings += 1
+                else:
+                    standings = 0
 
-            if not detector.eye_detector(left_eye_zone[person], right_eye_zone[person]) and stomachache:
-                stomachaches+=1
-            else:
-                stomachaches = 0
+            if datetime.datetime.now().timestamp() > wait_to_standings:
+                if stomachache:
+                    stomachaches+=1
+                    print('Stomachache')
+                else:
+                    stomachaches = 0
+        elif len(kx_list) > 1:
+            print('Nurse or doctor is here!')
+        else:
+            print('No one here! PROGRAM PASSIVE WORKING')
 
+        
         if standings >= 3:
-            print('Standing')
+            print('Standing proofed')
             standings = 0
+            wait_to_standings = datetime.datetime.now().timestamp() + interval
         if stomachaches >= 3:
-            print('Stomachache')
+            print('Stomachache proofed')
             stomachaches = 0
+            wait_to_stomachaches = datetime.datetime.now().timestamp() + interval
 
         img_list.append(img)
         mask_lists.append(mask_list)
@@ -73,7 +83,7 @@ def start_detect():
 
     cv2.imshow('image',img_list[0])
     cv2.waitKey(1)
-    start_detect()
+    start_detect(standings, stomachaches, wait_to_standings, wait_to_stomachaches)
 
-start_detect()
+start_detect(0, 0, 0, 0)
  
