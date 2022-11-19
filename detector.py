@@ -24,7 +24,7 @@ class Detector:
                 return True # True = eyes open
         except:pass
 
-    def drip_bag_detector(self, drip_zone):
+    def drip_bag_detector(self, drip_zone, cam_id):
         hsv = cv2.cvtColor(drip_zone, cv2.COLOR_BGR2HSV)
         mask = cv2.inRange(hsv, self.lower_range, self.upper_range)
         suma = 0
@@ -38,6 +38,7 @@ class Detector:
             return True 
         else:
             print("NO DRIP!")
+            self.logg(cam_id, "No drip detected!")
             return False
 
     def is_standing(self, scale, diff_y) -> bool:
