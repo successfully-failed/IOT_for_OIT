@@ -20,7 +20,7 @@ conf_thres = .75
 iou_thres = .45
 classes = False
 agnostic_nms = False
-line_thickness = 8
+line_thickness = 2
 empty = []
 p_detect = PoseDetect(
     weights_pose, 
@@ -35,7 +35,7 @@ p_detect = PoseDetect(
     agnostic_nms, 
     line_thickness
 )
-datasets = p_detect.setup()
+datasets, cams_id = p_detect.setup()
 detector = Detector()
 
 def start_detect(standings, stomachaches, wait_to_standings, wait_to_stomachaches):
@@ -43,10 +43,10 @@ def start_detect(standings, stomachaches, wait_to_standings, wait_to_stomachache
     diff_x_list, diff_y_list, diff_z_list = [], [], []
     kx_list = []
 
-    for dataset in datasets:
-        img, mask_list, left_eye_zone, right_eye_zone, diff_x_list, diff_y_list, diff_z_list, kx_list, stomachache, drip_zone_list, img0 = p_detect.detect2(dataset)
+    for i in range(len(datasets)):
+        img, mask_list, left_eye_zone, right_eye_zone, diff_x_list, diff_y_list, diff_z_list, kx_list, stomachache, drip_zone_list, img0 = p_detect.detect2(datasets[i])
         
-        temp_data = detector.image_analyse(kx_list, diff_y_list, stomachache, interval, standings, stomachaches, wait_to_standings, wait_to_stomachaches)
+        temp_data = detector.image_analyse(kx_list, diff_y_list, stomachache, interval, standings, stomachaches, wait_to_standings, wait_to_stomachaches, cam_id=cams_id[i])
         standings = temp_data[0]
         stomachaches = temp_data[1]
         wait_to_standings = temp_data[2] 

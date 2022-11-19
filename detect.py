@@ -32,10 +32,12 @@ class detect:
         with torch.no_grad():
             cameras = []
             cam_list = self.check_available_cameras()
-            # cam_list = [] # - Starting only one camera
-            # for filename in os.listdir("videos/"):
-            #     if filename.endswith(".mp4"):
-            #         cam_list.append(f"videos/{filename}")
+            cams_id = self.check_available_cameras()
+            cam_list = [] # - Starting only one camera
+            for filename in os.listdir("videos/"):
+                if filename.endswith(".mp4"):
+                    cam_list.append(f"videos/{filename}")
+                    cams_id.append(filename)
 
             set_logging()
             self.device = select_device(self.device)
@@ -79,7 +81,7 @@ class detect:
                     dataset = LoadImages(
                         source, img_size=self.imgsz, stride=self.stride)
                 cameras.append(dataset)
-            return cameras
+            return cameras, cams_id
 
     def detect2(self, dataset):
         with torch.no_grad():
