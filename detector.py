@@ -1,6 +1,7 @@
 import tensorflow as tf 
 import numpy as np
 from tensorflow.keras.models import load_model
+import datetime
 
 class Detector:
     def __init__(self) -> None:
@@ -19,9 +20,40 @@ class Detector:
                 return True # True = eyes open
         except:pass
     
-    @staticmethod
-    def is_standing(scale, diff_y) -> bool:
+    def is_standing(self, scale, diff_y) -> bool:
         # [pl] diff_z nie działa, opncv błędnie go wykrywa, więc go tu nie użyłem
         if diff_y > 2*scale:
             return True
         else: return False
+
+    def image_analyse(self, kx_list, diff_y_list, stomachache, interval, standings, stomachaches, wait_to_standings, wait_to_stomachaches):
+        if len(kx_list) == 1:
+            if datetime.datetime.now().timestamp() >= wait_to_standings:
+                if self.is_standing(kx_list[0], diff_y_list[0]):
+                    print('Standing!')
+                    standings += 1
+                else:
+                    standings = 0
+
+            if datetime.datetime.now().timestamp() > wait_to_stomachaches:
+                if stomachache:
+                    stomachaches+=1
+                    print('Stomachache')
+                else:
+                    stomachaches = 0
+        elif len(kx_list) > 1:
+            print('Nurse or doctor is here!')
+        else:
+            print('No one here! PROGRAM PASSIVE WORKING')
+
+        
+        if standings >= 3:
+            print('Standing proofed')
+            standings = 0
+            wait_to_standings = datetime.datetime.now().timestamp() + interval
+        if stomachaches >= 3:
+            print('Stomachache proofed')
+            stomachaches = 0
+            wait_to_stomachaches = datetime.datetime.now().timestamp() + interval
+
+        return [standings, stomachaches, wait_to_standings, wait_to_stomachaches]
