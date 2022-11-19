@@ -1,5 +1,6 @@
 from detect import detect as PoseDetect
 from detector import Detector
+import datetime
 
 import cv2
 
@@ -40,18 +41,30 @@ def start_detect():
     diff_x_list, diff_y_list, diff_z_list = [], [], []
     kx_list = []
 
+    standings = 0
+    stomachaches = 0
+
     for dataset in datasets:
         img, mask_list, left_eye_zone, right_eye_zone, diff_x_list, diff_y_list, diff_z_list, kx_list, stomachache, img0 = p_detect.detect2(dataset)
 
         # Process on persons:
         for person in range(len(kx_list)):
-            if detector.is_standing(kx_list[person], diff_y_list[person]): print('* STANDING!')
-            detector.eye_detector(left_eye_zone[person], right_eye_zone[person])
-        
+            if detector.is_standing(kx_list[person], diff_y_list[person]): 
+                standings += 1
+            else:
+                standings = 0
 
-        if stomachache:
-            print("Stomachache")
-        
+            if not detector.eye_detector(left_eye_zone[person], right_eye_zone[person]) and stomachache:
+                stomachaches+=1
+            else:
+                stomachaches = 0
+
+        if standings >= 3:
+            print('Standing')
+            standings = 0
+        if stomachaches >= 3:
+            print('Stomachache')
+            stomachaches = 0
 
         img_list.append(img)
         mask_lists.append(mask_list)

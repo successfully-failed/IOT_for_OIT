@@ -32,7 +32,7 @@ class detect:
         with torch.no_grad():
             cameras = []
             cam_list = self.check_available_cameras()
-            # cam_list = [1] - Starting only one camera
+            # cam_list = [] # - Starting only one camera
             for filename in os.listdir("videos/"):
                 if filename.endswith(".mp4"):
                     cam_list.append(f"videos/{filename}")
@@ -107,7 +107,7 @@ class detect:
                     diff_y_list = []
                     diff_z_list = []
                     kx_list = []
-
+                    stomachache = False
 
                     for i, det in enumerate(pred):
                         if isinstance(dataset, LoadStreams):
@@ -209,7 +209,6 @@ class detect:
                                     (left_shouder_y < right_hand_y < right_hip_y):
                                     h_y = True
 
-                                stomachache = False
                                 if h_x and h_y:
                                     stomachache = True
                                 

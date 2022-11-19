@@ -14,9 +14,9 @@ class Detector:
             pred_l = self.model.predict(np.expand_dims(resize_l / 255, 0))
             pred_r = self.model.predict(np.expand_dims(resize_r / 255, 0))
             if (pred_l < .1) and (pred_r < .1):
-                print("Eyes are closed")
+                return False # False = eyes closed
             else:
-                print("Eyes are open")
+                return True # True = eyes open
         except:pass
     
     @staticmethod
