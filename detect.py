@@ -32,7 +32,7 @@ class detect:
         with torch.no_grad():
             cameras = []
             cam_list = self.check_available_cameras()
-            # cam_list = []
+            # cam_list = [1] - Starting only one camera
             for filename in os.listdir("videos/"):
                 if filename.endswith(".mp4"):
                     cam_list.append(f"videos/{filename}")
