@@ -32,7 +32,7 @@ class detect:
         with torch.no_grad():
             cameras = []
             cam_list = self.check_available_cameras()
-            # cam_list = [] # - Starting only one camera
+            cam_list = [] # - Starting only one camera
             for filename in os.listdir("videos/"):
                 if filename.endswith(".mp4"):
                     cam_list.append(f"videos/{filename}")
@@ -86,7 +86,7 @@ class detect:
             i = 0
             for path, img, im0s, vid_cap in dataset:
                 i += 1
-                if i % 20 == 0:
+                if i % 5 == 0:
                     img = torch.from_numpy(img).to(self.device)
                     img = img.half() if self.half else img.float()
                     img /= 255.0
