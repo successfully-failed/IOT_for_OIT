@@ -1,11 +1,10 @@
 from detect import detect as PoseDetect
 from detector import Detector
-import datetime
 
 import cv2
 
 # Settings
-interval = 5
+interval = 30
 
 cam_view = []
 cam_list = []
@@ -46,35 +45,12 @@ def start_detect(standings, stomachaches, wait_to_standings, wait_to_stomachache
 
     for dataset in datasets:
         img, mask_list, left_eye_zone, right_eye_zone, diff_x_list, diff_y_list, diff_z_list, kx_list, stomachache, img0 = p_detect.detect2(dataset)
-        # Process on persons:
-        if len(kx_list) == 1:
-            if datetime.datetime.now().timestamp() >= wait_to_standings:
-                if detector.is_standing(kx_list[0], diff_y_list[0]):
-                    print('Standing!')
-                    standings += 1
-                else:
-                    standings = 0
-
-            if datetime.datetime.now().timestamp() > wait_to_standings:
-                if stomachache:
-                    stomachaches+=1
-                    print('Stomachache')
-                else:
-                    stomachaches = 0
-        elif len(kx_list) > 1:
-            print('Nurse or doctor is here!')
-        else:
-            print('No one here! PROGRAM PASSIVE WORKING')
-
         
-        if standings >= 3:
-            print('Standing proofed')
-            standings = 0
-            wait_to_standings = datetime.datetime.now().timestamp() + interval
-        if stomachaches >= 3:
-            print('Stomachache proofed')
-            stomachaches = 0
-            wait_to_stomachaches = datetime.datetime.now().timestamp() + interval
+        temp_data = detector.image_analyse(kx_list, diff_y_list, stomachache, interval, standings, stomachaches, wait_to_standings, wait_to_stomachaches)
+        standings = temp_data[0]
+        stomachaches = temp_data[1]
+        wait_to_standings = temp_data[2] 
+        wait_to_stomachaches = temp_data[3]
 
         img_list.append(img)
         mask_lists.append(mask_list)
@@ -85,5 +61,5 @@ def start_detect(standings, stomachaches, wait_to_standings, wait_to_stomachache
     cv2.waitKey(1)
     start_detect(standings, stomachaches, wait_to_standings, wait_to_stomachaches)
 
-start_detect(0, 0, 0, 0)
+start_detect(0,0,0,0)
  
