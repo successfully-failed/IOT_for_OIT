@@ -44,13 +44,18 @@ def start_detect(standings, stomachaches, wait_to_standings, wait_to_stomachache
     kx_list = []
 
     for dataset in datasets:
-        img, mask_list, left_eye_zone, right_eye_zone, diff_x_list, diff_y_list, diff_z_list, kx_list, stomachache, img0 = p_detect.detect2(dataset)
+        img, mask_list, left_eye_zone, right_eye_zone, diff_x_list, diff_y_list, diff_z_list, kx_list, stomachache, drip_zone_list, img0 = p_detect.detect2(dataset)
         
         temp_data = detector.image_analyse(kx_list, diff_y_list, stomachache, interval, standings, stomachaches, wait_to_standings, wait_to_stomachaches)
         standings = temp_data[0]
         stomachaches = temp_data[1]
         wait_to_standings = temp_data[2] 
         wait_to_stomachaches = temp_data[3]
+
+
+        if len(drip_zone_list):
+            is_drip = detector.drip_bag_detector(drip_zone_list[0])     
+            cv2.imshow('drip',drip_zone_list[0])
 
         img_list.append(img)
         mask_lists.append(mask_list)
