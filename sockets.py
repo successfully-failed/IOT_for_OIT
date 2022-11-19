@@ -30,7 +30,7 @@ class Socket_manager ():
         elif(choice == 4):
             self.status = arg
     
-    def getter (self,choice, arg):
+    def getter (self,choice):
         if(choice == 1):
             return self.matrix
         elif(choice == 2):
