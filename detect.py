@@ -176,7 +176,7 @@ class detect:
                                 left_eye_start_y =  int(kpts[step * 1 + 1] - distance_to_nose_y)
                                 left_eye_end_y =  int(kpts[step * 1 + 1] + distance_to_nose_y)
                                 left_eye_zone = im1[left_eye_start_y: left_eye_end_y,
-                                                    left_eye_end_x:left_eye_start_x]
+                                                    left_eye_start_x:left_eye_end_x]
                                 left_eyes.append(left_eye_zone)
                                 
                                 cv2.rectangle(im0, (left_eye_start_x, left_eye_start_y), (left_eye_end_x, left_eye_end_y), color=(
@@ -187,7 +187,7 @@ class detect:
                                 right_eye_start_y =  int(kpts[step * 2 + 1] - distance_to_nose_y)
                                 right_eye_end_y =  int(kpts[step * 2 + 1] + distance_to_nose_y)
                                 right_eye_zone = im1[right_eye_start_y: right_eye_end_y,
-                                                    right_eye_end_x:right_eye_start_x]
+                                                    right_eye_start_x:right_eye_end_x]
                                 right_eyes.append(right_eye_zone)
                                 
                                 cv2.rectangle(im0, (right_eye_start_x, right_eye_start_y), (right_eye_end_x, right_eye_end_y), color=(

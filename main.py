@@ -1,5 +1,6 @@
 from detect import detect as PoseDetect
 from analyser import is_standing
+from detector import Detector
 
 import cv2
 
@@ -33,6 +34,7 @@ p_detect = PoseDetect(
     line_thickness
 )
 datasets = p_detect.setup()
+detector = Detector()
 
 def start_detect():
     img_list, mask_lists, img0_list = [], [], []
@@ -40,11 +42,14 @@ def start_detect():
     kx_list = []
 
     for dataset in datasets:
-        img, mask_list, left_eye_zone, right_eyes, diff_x_list, diff_y_list, diff_z_list, kx_list, img0 = p_detect.detect2(dataset)
+        img, mask_list, left_eye_zone, right_eye_zone, diff_x_list, diff_y_list, diff_z_list, kx_list, img0 = p_detect.detect2(dataset)
 
         # Process on persons:
         for person in range(len(kx_list)):
             if is_standing(kx_list[person], diff_y_list[person]): print('* STANDING!')
+        
+        if left_eye_zone != empty:
+            detector.eye_detector(left_eye_zone[0], right_eye_zone[0])
 
         img_list.append(img)
         mask_lists.append(mask_list)
