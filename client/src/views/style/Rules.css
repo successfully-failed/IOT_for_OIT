@@ -1,0 +1,14 @@
+:root {
+    --bg-3: #ddd;
+}
+
+.rules-page {
+    background-color: var(--bg-3);
+}
+
+header {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
+
