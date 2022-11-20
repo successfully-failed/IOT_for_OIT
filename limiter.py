@@ -9,7 +9,7 @@ def poor_mode (seconds, maxsize):
     resource.setrlimit(resource.RLIMIT_AS, (maxsize, hardm))
     print("resources taken way")
 
-def rich_mode (seconds, maxsize):
+def rich_mode ():
     print("lowering resources")
     resource.RLIM_INFINITY 
     print("resources taken way")
