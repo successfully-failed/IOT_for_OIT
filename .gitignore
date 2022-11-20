@@ -4,3 +4,4 @@ videos/
 PoseModule\yolov7\yolov7-w6-pose.pt
 traning_AI_zone/
 models/
+server/venv/
