@@ -2,6 +2,10 @@
     --bg-3: #ddd;
 }
 
+body {
+    height: 100vh;
+}
+
 .rule-container, .ready-rule-container {
     display: flex;
     flex-direction: row;
@@ -12,6 +16,7 @@
 .rules-page {
     background-color: var(--bg-3);
     margin-left: 80px;
+    height: 100vh;
 }
 
 header {

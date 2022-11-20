@@ -13,6 +13,11 @@ const actionList = {
     3: 'Start alarm'
 };
 
+const cameraList = {
+    0: 'Room 1',
+    1: 'Room 2',
+    2: 'Room 3' 
+};
 
 var allRules = [];
 allRules.push(<RuleContainer></RuleContainer>);
@@ -51,23 +56,17 @@ function MainRulesContainer() {
     )
 }
 
-// let json = require('./../../../../log/rules.json');
-// console.log(json);
-
 function RuleContainer() {
     function saveRule(e) {
       e.preventDefault();
       //let camera = document.querySelector("#detection");
       let detection = document.querySelector("#detection").value;
       let action = document.querySelector("#action").value;
-      console.log(detection);
-      console.log(action);
-
-        
+      let camera = document.querySelector("#camera").value;
 
       const readyRuleContainer = (
         <div className="ready-rule-container">
-            <p></p>
+            <p>{camera}</p>
             <p>IF</p>
             <p>{detection}</p>
             <p>THEN</p>
@@ -75,7 +74,6 @@ function RuleContainer() {
         </div>
       )
       allRules.push(readyRuleContainer);
-      console.log(allRules);
       setRerendererglob(!rerenderglob);
     }
 
@@ -99,8 +97,10 @@ function RuleContainer() {
 function CameraSelector() {
     return (
         <div className='camera-selector'>
-            <select>
-                
+            <select id="camera">
+                <option>{cameraList[0]}</option>
+                <option>{cameraList[1]}</option>
+                <option>{cameraList[2]}</option>
             </select>
         </div>
     )
@@ -140,7 +140,7 @@ function SaveButton() {
 
 function DeleteButton() {
     return (
-        <button type="reset">DELETE</button>
+        <button type="reset">RESET</button>
     );
 }
 
