@@ -1,7 +1,6 @@
 import asyncio
-from sockets import Socket_manager
+from sockets import Socket_manager as Soc
 import websockets
 
-manager = Socket_manager()
-manager.start()
-print(manager.rules)
+soc = Soc()
+asyncio.run(soc.main())
