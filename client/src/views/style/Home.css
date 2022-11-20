@@ -1,4 +1,25 @@
 .home{
     min-height: 100vh;
     margin-left: 80px;
+    padding: 100px;
+    box-sizing: border-box;
+}
+.home>.stopper{
+    width: 100%;
+    height: 2px;
+    background-color: #222;
+    margin: 10px 0 40px 0;
+}
+.home>.all-cameras{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1.5fr));
+}
+.home>.all-cameras>.cam-container{
+    height: 200px;
+    background: radial-gradient(circle, rgb(207, 207, 207) 0%, rgb(250, 250, 250) 100%);
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

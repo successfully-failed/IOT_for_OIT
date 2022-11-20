@@ -11,8 +11,8 @@ class Detector:
         self.model = load_model('models/binary_closed_eye_model.h5')
         self.lower_range = np.array([0,0,168])
         self.upper_range = np.array([172,111,255])
-        self.log_file = "log/log.json"
-        self.rules_file = "log/rules.json"
+        self.log_file = "/client/src/log/log.json"
+        self.rules_file = "/client/src/log/rules.json"
         self.no_somebody = 0
         self.two_persons = 0
         self.no_drip_nr = 0
