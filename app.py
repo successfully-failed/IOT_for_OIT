@@ -1,6 +1,7 @@
 from flask import Flask
 import json
 from detector import Detector as Dt
+import limiter as lim
 dt = Dt()
 
 app = Flask(__name__)
@@ -15,6 +16,18 @@ def cameras():
 
 @app.route('/logs')
 def logs():
-    return
+    return logs
+
+@app.route('/inhibitor')
+def inhibitor ():
+    lim.poor_mode(20,200)
+    return lim.poor_mode
+
+@app.route('/activator')
+def activator():
+    lim.rich_mode()
+    return lim.rich_mode
+
+    
 
 
