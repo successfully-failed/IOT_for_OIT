@@ -23,3 +23,21 @@
     align-items: center;
     justify-content: center;
 }
+.home>.all-cameras>.cam-container>.cam-view{
+    height: 150px;
+    width: 80%;
+    border: solid 2px;
+}
+.home>.all-cameras>.cam-container>.cam-view.green{border-color: #0f0;}
+.home>.all-cameras>.cam-container>.cam-view.orange{border-color: #fb0;}
+.home>.all-cameras>.cam-container>.cam-view.red{border-color: #f00;}
+.home>.all-cameras>.cam-container>p{
+    position: absolute;
+    background: #aaa;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+}
