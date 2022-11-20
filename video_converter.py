@@ -12,3 +12,4 @@ def encode (video):
             break
         encoded = b64.b64encode(frame)
         return encoded
+
