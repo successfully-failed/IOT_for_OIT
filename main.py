@@ -57,10 +57,7 @@ def start_detect(standings, stomachaches, wait_to_standings, wait_to_stomachache
             detector.drip_bag_detector(drip_zone_list[0], cam_id=cams_id[i])     
             
         img_list.append(img)
-        mask_lists.append(mask_list)
-        img0_list.append(img0)
-
-
+        
     cv2.imshow('image',img_list[0])
     cv2.waitKey(1)
     start_detect(standings, stomachaches, wait_to_standings, wait_to_stomachaches)

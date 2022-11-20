@@ -33,11 +33,12 @@ class detect:
             cameras = []
             cam_list = self.check_available_cameras()
             cams_id = self.check_available_cameras()
-            cam_list = [] # - Starting only one camera
-            for filename in os.listdir("videos/"):
-                if filename.endswith(".mp4"):
-                    cam_list.append(f"videos/{filename}")
-                    cams_id.append(filename)
+            #cam_list = [] # - Starting only one camera
+            #cams_id = []
+            # for filename in os.listdir("videos/"):
+            #     if filename.endswith(".mp4"):
+            #         cam_list.append(f"videos/{filename}")
+            #         cams_id.append(filename)
 
             set_logging()
             self.device = select_device(self.device)
@@ -146,29 +147,29 @@ class detect:
                                     (y_shouders - y_nose) / 2.0) + y_nose
                                 #cv2.circle(im0, (int(x_center), int(y_center)), 6, (0,0,255), -1)
 
-                                # mask zone
-                                x_start_mask = int(kpts[step * 1])
-                                x_end_mask = int(kpts[step * 2])
-                                x_length = abs(x_end_mask - x_start_mask)
-                                x_length = x_length / 2
-                                y_start_mask = int(y_nose)
-                                y_end_height = int(y_center)
-                                y_length = abs(y_end_height-y_start_mask) /2
-                                y_length = y_start_mask + y_length
-                                y_start_mask = int(y_length - x_length)
-                                y_end_height = int(y_length + x_length)
-                                if y_start_mask <= kpts[step * 0 + 1]:
-                                    y_start_mask = int(kpts[step * 0 + 1] * 1.05)
-                                else:
-                                    y_start_mask = int(y_start_mask)
+                                # # mask zone
+                                # x_start_mask = int(kpts[step * 1])
+                                # x_end_mask = int(kpts[step * 2])
+                                # x_length = abs(x_end_mask - x_start_mask)
+                                # x_length = x_length / 2
+                                # y_start_mask = int(y_nose)
+                                # y_end_height = int(y_center)
+                                # y_length = abs(y_end_height-y_start_mask) /2
+                                # y_length = y_start_mask + y_length
+                                # y_start_mask = int(y_length - x_length)
+                                # y_end_height = int(y_length + x_length)
+                                # if y_start_mask <= kpts[step * 0 + 1]:
+                                #     y_start_mask = int(kpts[step * 0 + 1] * 1.05)
+                                # else:
+                                #     y_start_mask = int(y_start_mask)
 
-                                mask_zone_img = im1[y_start_mask:y_end_height,
-                                                        x_end_mask:x_start_mask]
+                                # mask_zone_img = im1[y_start_mask:y_end_height,
+                                #                         x_end_mask:x_start_mask]
 
                             
-                                mask_list.append(mask_zone_img)
-                                cv2.rectangle(im0, (x_start_mask, y_start_mask), (x_end_mask, y_end_height), color=(
-                                    0, 255, 255), thickness=2)
+                                # mask_list.append(mask_zone_img)
+                                # cv2.rectangle(im0, (x_start_mask, y_start_mask), (x_end_mask, y_end_height), color=(
+                                #     0, 255, 255), thickness=2)
 
                                 #eyes zone
                                 distance_to_nose_x = abs(kpts[step * 0] - kpts[step * 1]) * .8
