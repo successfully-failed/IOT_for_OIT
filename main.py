@@ -15,7 +15,7 @@ view_img = True
 imgsz = 640
 half_precision = True
 kpt_label = True
-device = ''  # GPU, if cpu = 'cpu'
+device = ''  # GPU, if cpu = 'cpu' 
 conf_thres = .75
 iou_thres = .45
 classes = False
