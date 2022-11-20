@@ -12,6 +12,7 @@ portname = 8001
 print("run printhelp to know what to do")
 
       
+
     
 async def handler (websocket):
     while True:
@@ -23,12 +24,13 @@ async def handler (websocket):
         #tester = await websocket.recv()
         #print(tester)
 
-
 async def main (): 
     async with websockets.serve(handler, "", 8001):
         await asyncio.Future()
+
 
 #def printhelp(:
  #   print("After creating an object run main method with assync.runner.run()")
 
 asyncio.run(main())
+
