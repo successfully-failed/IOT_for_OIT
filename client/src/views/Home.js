@@ -4,48 +4,33 @@ import './style/Home.css';
 
 function Home() {
     
-    useEffect(() => {
-        const ws = new WebSocket(
-          "wss://localhost:8001"
-        );
-    
-        ws.onopen = () => {
-          console.log("Connection Established!");
-          ws.send("vid");
-        };
-        ws.onmessage = (event) => {
-          const response = JSON.parse(event.data);
-          console.log(response);
-
-          //ws.close();
-        };
-        ws.onclose = () => {
-          console.log("Connection Closed!");
-          //initWebsocket();
-        };
-    
-        ws.onerror = () => {
-          console.log("WS Error");
-        };
-    
-        return () => {
-          ws.close();
-        };
-      }, []);
-
+    const cameras = [
+        {id: 0, img: "", status: '2'},
+        {id: 1, img: "", status: '0'},
+        {id: 2, img: "", status: '1'},
+        {id: 3, img: "", status: '0'},
+        {id: 4, img: "", status: '2'},
+    ]
     const listCameras = cameras.map((camera) =>
         <div className='cam-container'>
-            <img src={"data:image/png;base64, "{camera.img}}></img>
+            <div className={
+                (camera.status==='0') ? ('cam-view green') :
+                (camera.status==='1') ? ('cam-view orange') :
+                (camera.status==='2') ? ('cam-view red') : alert('Given bad data!')}>
+                    <img src={camera.img} alt='camera view'></img></div>
+            <p>{camera.id}</p>
         </div>
     );
     return (
             <div className='home'>
                 <h1>Cameras</h1>
                 <div className='stopper'></div>
-                <ul>{listCameras}</ul>
+                <div className='all-cameras'>{listCameras}</div>
             </div>
 
     );
 }
 
 export default Home;
+
+/*   */

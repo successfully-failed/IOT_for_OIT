@@ -11,8 +11,8 @@ class Detector:
         self.model = load_model('models/binary_closed_eye_model.h5')
         self.lower_range = np.array([0,0,168])
         self.upper_range = np.array([172,111,255])
-        self.log_file = "log/log.json"
-        self.rules_file = "log/rules.json"
+        self.log_file = "/client/src/log/log.json"
+        self.rules_file = "/client/src/log/rules.json"
         self.no_somebody = 0
         self.two_persons = 0
         self.no_drip_nr = 0
@@ -53,6 +53,8 @@ class Detector:
                     self.no_drip_nr = 0
                     print("NO DRIP!")
                     self.logg(cam_id, "No drip detected!")
+                    return True
+        return False
 
     def is_standing(self, scale, diff_y) -> bool:
         if diff_y > 2*scale:
@@ -120,30 +122,32 @@ class Detector:
                     print('No one here! PROGRAM PASSIVE WORKING')
                     self.logg(cam_id, "No one in room.")
                     self.no_somebody = 0
-        
+        danger = 0
         if standings >= 3:
             print('Standing proofed')
             self.logg(cam_id, "Patient standing")
             standings = 0
             wait_to_standings = datetime.datetime.now().timestamp() + interval
+            danger = 1
         if stomachaches >= 3:
             print('Stomachache proofed')
             self.logg(cam_id, "Patient have stomachache")
             stomachaches = 0
             wait_to_stomachaches = datetime.datetime.now().timestamp() + interval
+            danger = 1
 
-        return [standings, stomachaches, wait_to_standings, wait_to_stomachaches]
+        return [standings, stomachaches, wait_to_standings, wait_to_stomachaches, danger]
     
     @classmethod
     def data_getter(cls):
         return cls.image
 
     @classmethod
-    def data_setter(cls, imgs, ids):
+    def data_setter(cls, imgs, ids, dangers):
         data = {"cameras": []}
         for nr, img in enumerate(imgs):
             img = b64.b64encode(img)
-            my_data = {"id": ids[nr], "img": str(img)}
+            my_data = {"id": ids[nr], "status": str({dangers[nr]}) ,"img": str(img)}
             data["cameras"].append(my_data)
         cls.image = json.dumps(data)
                
