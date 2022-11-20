@@ -1,9 +1,10 @@
 import websockets
 import asyncio
-import numpy as np
-import pickle
+import video_converter as vide
 
-matrix = np.array([[1,1,1],[2,2,2],[3,3,3]])  #video matrix -- 1
+
+
+vid = "" 
 rules = "" #here comes json --2 
 status = "" #for status light --3
 cam_id = "" #id of the camera --4 
@@ -15,8 +16,7 @@ print("run printhelp to know what to do")
 async def handler (websocket):
     while True:
         rules = await websocket.recv()
-        picl = pickle.dumps(matrix)
-        await websocket.send(picl)
+        await websocket.send(vid)
         await websocket.send(rules)
         await websocket.send(status)
         await websocket.send(cam_id)
@@ -30,3 +30,5 @@ async def main ():
 
 #def printhelp(:
  #   print("After creating an object run main method with assync.runner.run()")
+
+asyncio.run(main())
