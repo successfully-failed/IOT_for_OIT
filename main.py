@@ -42,6 +42,7 @@ def start_detect(standings, stomachaches, wait_to_standings, wait_to_stomachache
     img_list, mask_lists, img0_list = [], [], []
     diff_x_list, diff_y_list, diff_z_list = [], [], []
     kx_list = []
+    danger_list = []
 
     for i in range(len(datasets)):
         try:
@@ -52,15 +53,22 @@ def start_detect(standings, stomachaches, wait_to_standings, wait_to_stomachache
             stomachaches = temp_data[1]
             wait_to_standings = temp_data[2] 
             wait_to_stomachaches = temp_data[3]
+            danger = temp_data[4]
 
 
             if len(drip_zone_list):
-                detector.drip_bag_detector(drip_zone_list[0], cam_id=cams_id[i])     
+                danger2 = detector.drip_bag_detector(drip_zone_list[0], cam_id=cams_id[i])  
+
+            if danger2:
+                danger_list.append(2)
+            elif danger:
+                danger_list.append(1)
+            else: danger_list.append(0)   
                 
             img_list.append(img)
         except: print("Video has ended")
-        
-    detector.data_setter(img_list, cams_id)
+
+    detector.data_setter(img_list, cams_id, danger_list)
         
     cv2.imshow('image',img_list[0])
     cv2.waitKey(1)
