@@ -1,14 +1,15 @@
 import React from 'react';
-import './style/Home.css';
+import './style/Footer.css';
 
 
-function Home() {
+function Footer() {
+
     return (
-            <div className='home'>
+            <div className='footer' >
                 <p>Created with ❤️</p>
             </div>
 
     );
 }
 
-export default Home;
+export default Footer;

@@ -5,10 +5,11 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+console.log("Xd");
 root.render(
   <React.StrictMode>
-    <App />
-
+    <App/>
   </React.StrictMode>
 );
 
