@@ -1,4 +1,4 @@
-import Reac, { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './style/Settings.css';
 
 export default SettingsPage;

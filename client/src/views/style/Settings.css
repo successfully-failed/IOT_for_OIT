@@ -13,7 +13,7 @@ body {
   align-items: center;
 }
 
-h1 {
+.settings>h1 {
   color: white;
   height: 75px;
   margin-bottom: 60px;
