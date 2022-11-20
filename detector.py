@@ -10,6 +10,9 @@ class Detector:
         self.lower_range = np.array([0,0,168])
         self.upper_range = np.array([172,111,255])
         self.log_file = "log/log.json"
+        self.no_somebody = 0
+        self.two_persons = 0
+        self.no_drip_nr = 0
         
     def eye_detector(self, left_eye, right_eye):
         try:
@@ -35,11 +38,13 @@ class Detector:
                     suma += 1
         if suma > 35:
             print("Drip detected")
-            return True 
+            self.no_drip_nr = 0
         else:
-            print("NO DRIP!")
-            self.logg(cam_id, "No drip detected!")
-            return False
+            self.no_drip_nr += 1
+            if self.no_drip_nr >= 10:
+                self.no_drip_nr = 0
+                print("NO DRIP!")
+                self.logg(cam_id, "No drip detected!")
 
     def is_standing(self, scale, diff_y) -> bool:
         # [pl] diff_z nie działa, opncv błędnie go wykrywa, więc go tu nie użyłem
@@ -80,13 +85,24 @@ class Detector:
                     print('Stomachache')
                 else:
                     stomachaches = 0
-        elif len(kx_list) > 1:
-            print('Nurse or doctor is here!')
-            self.logg(cam_id, "Nurse or doctor service")
-        else:
-            print('No one here! PROGRAM PASSIVE WORKING')
-            self.logg(cam_id, "No one in room.")
 
+        elif len(kx_list) > 1:
+            self.no_somebody = 0
+            if self.two_persons == 0:
+                print('Nurse or doctor is here!')
+                self.logg(cam_id, "Nurse or doctor service")
+                self.two_persons += 1
+            else:
+                self.two_persons += 1
+                if self.two_persons >= 3:
+                    self.two_persons = 0
+        else:
+            self.no_somebody += 1
+            self.two_persons = 1
+            if self.no_somebody >= 3:
+                print('No one here! PROGRAM PASSIVE WORKING')
+                self.logg(cam_id, "No one in room.")
+                self.no_somebody = 0
         
         if standings >= 3:
             print('Standing proofed')

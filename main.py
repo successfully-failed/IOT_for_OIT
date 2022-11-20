@@ -54,9 +54,8 @@ def start_detect(standings, stomachaches, wait_to_standings, wait_to_stomachache
 
 
         if len(drip_zone_list):
-            is_drip = detector.drip_bag_detector(drip_zone_list[0], cam_id=cams_id[i])     
-            cv2.imshow('drip',drip_zone_list[0])
-
+            detector.drip_bag_detector(drip_zone_list[0], cam_id=cams_id[i])     
+            
         img_list.append(img)
         mask_lists.append(mask_list)
         img0_list.append(img0)
