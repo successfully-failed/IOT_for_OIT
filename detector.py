@@ -4,6 +4,9 @@ import cv2
 from tensorflow.keras.models import load_model
 import datetime, json
 import base64 as b64
+import os
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 class Detector:
     image = []

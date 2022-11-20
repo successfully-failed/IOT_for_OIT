@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 import json
 from detector import Detector as Dt
 dt = Dt()
@@ -11,7 +11,8 @@ def home():
 
 @app.route('/cameras')
 def cameras():
-    return  dt.data_getter()
+    return  jsonify(dt.data_getter())
+    #return  jsonify({"cameras": [{"id": 2, "status": "1", "img": "fjd"}, {"id": 1, "status": "2", "img": "fjd"}]})
 
 @app.route('/logs')
 def logs():

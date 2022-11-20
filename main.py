@@ -58,21 +58,20 @@ def start_detect(standings, stomachaches, wait_to_standings, wait_to_stomachache
 
             if len(drip_zone_list):
                 danger2 = detector.drip_bag_detector(drip_zone_list[0], cam_id=cams_id[i])  
-
-            if danger2:
                 danger_list.append(2)
-            elif danger:
+            
+            if danger:
                 danger_list.append(1)
             else: danger_list.append(0)   
                 
             img_list.append(img)
-        except: print("Video has ended")
+        except:print("Video has ended")
 
     detector.data_setter(img_list, cams_id, danger_list)
-        
-    cv2.imshow('image',img_list[0])
+    print(len(img_list))
+    if len(img_list):
+        cv2.imshow('image',img_list[0])
     cv2.waitKey(1)
     start_detect(standings, stomachaches, wait_to_standings, wait_to_stomachaches)
 
 start_detect(0,0,0,0)
- 

@@ -3,16 +3,17 @@ import './style/Home.css';
 
 
 function Home() {
-    const [cameras, setCameras] = useState([]);
-    const fetch_cam = () => {
-        useEffect(() => {
-                fetch('/cameras')
-                .then(response => response.json())
-                .then(json => setCameras(json))
-        }, []);
-    }
+    const [cameras, setCameras] = useState({"cameras": []});
+
+    useEffect(() => {
+        fetch('/cameras')
+        .then(response => response.json())
+        .then(json => setCameras(json))
+    }, [0]);
     
-    const listCameras = cameras.map((camera) =>
+    console.log(cameras);
+    
+    const listCameras = cameras.cameras.map((camera) =>
         <div className='cam-container'>
             <div className={
                 (camera.status==='0') ? ('cam-view green') :
@@ -28,7 +29,6 @@ function Home() {
                 <h1>Cameras</h1>
                 <div className='stopper'></div>
                 <div className='all-cameras'>{listCameras} {(cameras.length === 0) ? "No camera!" : null}</div>
-                {fetch_cam}
             </div>
 
     );

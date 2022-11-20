@@ -35,10 +35,10 @@ class detect:
             cams_id = self.check_available_cameras()
             #cam_list = [] # - Starting only one camera
             #cams_id = []
-            # for filename in os.listdir("videos/"):
-            #     if filename.endswith(".mp4"):
-            #         cam_list.append(f"videos/{filename}")
-            #         cams_id.append(filename)
+            for filename in os.listdir("videos/"):
+                 if filename.endswith(".mp4"):
+                     cam_list.append(f"videos/{filename}")
+                     cams_id.append(filename)
 
             set_logging()
             self.device = select_device(self.device)
