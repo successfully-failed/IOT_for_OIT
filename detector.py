@@ -47,7 +47,7 @@ class Detector:
                 self.no_drip_nr = 0
             else:
                 self.no_drip_nr += 1
-                if self.no_drip_nr >= 10:
+                if self.no_drip_nr >= 7:
                     self.no_drip_nr = 0
                     print("NO DRIP!")
                     self.logg(cam_id, "No drip detected!")
@@ -90,6 +90,9 @@ class Detector:
 
             if "1" in active_rules:
                 if datetime.datetime.now().timestamp() > wait_to_stomachaches:
+                    # open_eye = self.eye_detector(left_eye_zone, right_eye_zone)
+                    # print(open_eye)
+                    # if not open_eye: 
                     if stomachache:
                         stomachaches+=1
                         print('Stomachache')
@@ -111,7 +114,7 @@ class Detector:
             if active_rules != "":
                 self.no_somebody += 1
                 self.two_persons = 1
-                if self.no_somebody >= 3:
+                if self.no_somebody >= 10:
                     print('No one here! PROGRAM PASSIVE WORKING')
                     self.logg(cam_id, "No one in room.")
                     self.no_somebody = 0
