@@ -1,23 +1,26 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+
+// Pages
+import Home from './views/Home';
+// import Alerts from './views/Alerts';
+// import Rules from './views/Rules';
+// import Setup from './views/Setup';
+// import Settings from './views/Settings';
+
+// COmponents
+import NavBar from './components/NavBar'
+import Footer from './components/Footer'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <NavBar/>
+        <Routes>
+          <Route path='/' element={<Home/>}/>
+        </Routes>
+      <Footer/>
+    </Router>
   );
 }
 
