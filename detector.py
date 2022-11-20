@@ -3,8 +3,10 @@ import numpy as np
 import cv2
 from tensorflow.keras.models import load_model
 import datetime, json
+import base64 as b64
 
 class Detector:
+    image = []
     def __init__(self) -> None:
         self.model = load_model('models/binary_closed_eye_model.h5')
         self.lower_range = np.array([0,0,168])
@@ -131,3 +133,18 @@ class Detector:
             wait_to_stomachaches = datetime.datetime.now().timestamp() + interval
 
         return [standings, stomachaches, wait_to_standings, wait_to_stomachaches]
+    
+    @classmethod
+    def data_getter(cls):
+        return cls.image
+
+    @classmethod
+    def data_setter(cls, imgs, ids):
+        data = {"cameras": []}
+        for nr, img in enumerate(imgs):
+            img = b64.b64encode(img)
+            my_data = {"id": ids[nr], "img": str(img)}
+            data["cameras"].append(my_data)
+        cls.image = json.dumps(data)
+               
+        
