@@ -37,17 +37,40 @@ function RulesPage() {
 }
 
 function RuleContainer() {
-    return (
-        <div className='rule-container'>
-            <CameraSelector />
-            <p>IF</p>
-            <DetectionSelector />
-            <p>THEN</p>
-            <ActionSelector />
-            <SaveButton />
-            <DeleteButton />
+    function saveRule(e) {
+      e.preventDefault();
+      console.log('You clicked submit.');
+      //let camera = document.querySelector("#detection");
+      let detection = document.querySelector("#detection").value;
+      let action = document.querySelector("#action").value;
+      console.log(detection);
+      console.log(action);
+      const readyRuleContainer = (
+        <div className="ready-rule-container">
+            <p></p>
+            <p>{detection}</p>
+            <p>{action}</p>
         </div>
-    );
+      )
+      return readyRuleContainer;
+    }
+
+    function deleteRule() {
+        console.log('You clicked reset.');
+    }
+    return (
+        <form onSubmit={saveRule} onReset={deleteRule}>
+            <div className='rule-container'>
+                <CameraSelector />
+                <p>IF</p>
+                <DetectionSelector />
+                <p>THEN</p>
+                <ActionSelector />
+                <SaveButton />
+                <DeleteButton />
+            </div>
+        </form>
+    )
 }
 
 function CameraSelector() {
@@ -63,7 +86,7 @@ function CameraSelector() {
 function DetectionSelector() {
     return (
         <div className='detection-selector'>
-            <select>
+            <select id="detection">
                 <option>{detectionList[1]}</option>
                 <option>{detectionList[2]}</option>
                 <option>{detectionList[3]}</option>
@@ -77,7 +100,7 @@ function DetectionSelector() {
 function ActionSelector() {
     return (
         <div className='action-selector'>
-            <select>
+            <select id="action">
                 <option>{actionList[1]}</option>
                 <option>{actionList[2]}</option>
                 <option>{actionList[3]}</option>
@@ -88,14 +111,14 @@ function ActionSelector() {
 
 function SaveButton() {
     return (
-        <button>SAVE</button>
-    )
+        <button type="submit">SAVE</button>
+    );
 }
 
 function DeleteButton() {
     return (
-        <button>DELETE</button>
-    )
+        <button type="reset">DELETE</button>
+    );
 }
 
 export default RulesPage;

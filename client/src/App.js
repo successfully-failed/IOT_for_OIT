@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 // Pages
 import Home from './views/Home';
 // import Alerts from './views/Alerts';
-// import Rules from './views/Rules';
+import Rules from './views/Rules';
 // import Setup from './views/Setup';
 // import Settings from './views/Settings';
 
@@ -18,6 +18,7 @@ function App() {
       <NavBar/>
         <Routes>
           <Route path='/' element={<Home/>}/>
+          <Route path='/Rules' element={<Rules />}/>
         </Routes>
       <Footer/>
     </Router>
