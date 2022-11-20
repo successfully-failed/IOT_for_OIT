@@ -49,17 +49,20 @@ class Detector:
 
     def logg(self, camera_id, action):
         with open(self.log_file,'r+') as file:
-          # First we load existing data into a dict.
             file_data = json.load(file)
-        # Join new_data with file_data inside emp_details
+
+            try:
+                id = file_data["logs"][len(file_data["logs"])-1]["_id"]+1
+            except:
+                id = 0
+
             file_data["logs"].append({
-                "timestamp": datetime.datetime.now().timestamp(),
+                "_id": id,
+                "timestamp": int(datetime.datetime.now().timestamp()*1000),
                 "camera_id": camera_id,
                 "action": action
             })
-        # Sets file's current position at offset.
             file.seek(0)
-        # convert back to json.
             json.dump(file_data, file, indent = 4)
 
     def image_analyse(self, kx_list, diff_y_list, stomachache, interval, standings, stomachaches, wait_to_standings, wait_to_stomachaches, cam_id):

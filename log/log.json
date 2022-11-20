@@ -1,19 +1,3 @@
 {
-    "logs": [
-        {
-            "timestamp": 1668900648.901996,
-            "camera_id": 0,
-            "action": "Patient standing"
-        },
-        {
-            "timestamp": 1668900656.027995,
-            "camera_id": 0,
-            "action": "Patient have stomachache"
-        },
-        {
-            "timestamp": 1668900686.067043,
-            "camera_id": 0,
-            "action": "Patient standing"
-        }
-    ]
+    "logs": []
 }
