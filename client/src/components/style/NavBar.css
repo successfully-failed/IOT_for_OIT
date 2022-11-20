@@ -1,0 +1,71 @@
+.menu-bar{
+    width: 80px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    position: fixed;
+    top: 0;
+    background: #ddd;
+    transition: .5s ease;
+    overflow: hidden;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+    box-shadow: 0 0 10px #00000017;
+}
+
+.menu-bar > .menu-head{
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.menu-bar > .menu-head > i {
+    width: 80px;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.menu-bar > .menu-head > i:hover{
+    background: #eee;
+}
+.menu-bar.open{
+    width: 400px;
+}
+.menu-bar>nav{
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition: .5s;
+}
+.menu-bar.open > nav{
+    opacity: 1;
+}
+.menu-bar>nav>a{
+    width: 100%;
+    height: 80px;
+    font-size: 30px;
+    text-decoration: none;
+    color: #222;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+.menu-bar>nav>a:hover{
+    background: #eee;
+    color: #111;
+    text-decoration: underline;
+}
+.menu-bar>nav>.stopper{
+    height: max-content;
+}
