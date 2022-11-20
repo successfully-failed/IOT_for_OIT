@@ -2,7 +2,7 @@
     --bg-3: #ddd;
 }
 
-.rule-container {
+.rule-container, .ready-rule-container {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;

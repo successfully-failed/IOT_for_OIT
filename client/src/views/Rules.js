@@ -1,5 +1,5 @@
-import React from 'react';
 import './style/Rules.css';
+import React, { useState } from 'react';
 
 const detectionList = {
     1: 'Stomachache',
@@ -12,6 +12,10 @@ const actionList = {
     2: 'Flash lights',
     3: 'Start alarm'
 };
+
+
+var allRules = [];
+allRules.push(<RuleContainer></RuleContainer>);
 
 // function returnDetectionList() {
 //     const list = [];
@@ -29,34 +33,53 @@ function RulesPage() {
             <h1>Active rules: X</h1>
             
             </header>
-            <main>
-                <RuleContainer />
-            </main>
+            <MainRulesContainer>
+            </MainRulesContainer>
         </div>
     )
 }
+let rerenderglob, setRerendererglob;
+function MainRulesContainer() {
+    const [rerender, setRerender] = useState(false);
+    rerenderglob = rerender;
+    setRerendererglob = setRerender;
+
+    return (
+        <main>
+            {allRules}
+        </main>
+    )
+}
+
+// let json = require('./../../../../log/rules.json');
+// console.log(json);
 
 function RuleContainer() {
     function saveRule(e) {
       e.preventDefault();
-      console.log('You clicked submit.');
       //let camera = document.querySelector("#detection");
       let detection = document.querySelector("#detection").value;
       let action = document.querySelector("#action").value;
       console.log(detection);
       console.log(action);
+
+        
+
       const readyRuleContainer = (
         <div className="ready-rule-container">
             <p></p>
+            <p>IF</p>
             <p>{detection}</p>
+            <p>THEN</p>
             <p>{action}</p>
         </div>
       )
-      return readyRuleContainer;
+      allRules.push(readyRuleContainer);
+      console.log(allRules);
+      setRerendererglob(!rerenderglob);
     }
 
     function deleteRule() {
-        console.log('You clicked reset.');
     }
     return (
         <form onSubmit={saveRule} onReset={deleteRule}>
