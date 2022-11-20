@@ -6,16 +6,16 @@ function Home() {
     
     useEffect(() => {
         const ws = new WebSocket(
-          "wss://localhost:8001"
+          "ws://localhost:8001"
         );
     
         ws.onopen = () => {
           console.log("Connection Established!");
-          ws.send("vid");
+          ws.send(JSON.stringify({""}));
         };
         ws.onmessage = (event) => {
           const response = JSON.parse(event.data);
-          console.log(response);
+          console.log("RESPONSE: ", response);
 
           //ws.close();
         };
@@ -32,10 +32,13 @@ function Home() {
           ws.close();
         };
       }, []);
-
+    
+    const cameras = [0,1,2,3]
     const listCameras = cameras.map((camera) =>
         <div className='cam-container'>
-            <img src={"data:image/png;base64, "{camera.img}}></img>
+            <img src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUA
+    AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
+        9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot" ></img>
         </div>
     );
     return (
