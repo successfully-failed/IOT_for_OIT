@@ -6,7 +6,7 @@ import Home from './views/Home';
 // import Alerts from './views/Alerts';
 import Rules from './views/Rules';
 // import Setup from './views/Setup';
-// import Settings from './views/Settings';
+import Settings from './views/Settings';
 
 // COmponents
 import NavBar from './components/NavBar'
@@ -19,6 +19,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/rules' element={<Rules/>}/>
+          <Route path='/settings' element={<Settings/>}/>
         </Routes>
       <Footer/>
     </Router>

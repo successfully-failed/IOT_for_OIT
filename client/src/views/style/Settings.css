@@ -1,0 +1,62 @@
+:root {
+    --bg-3: #ddd;
+}
+
+body {
+    height: 100vh;
+    background-color: var(--bg-3);
+}
+
+#prompt-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  color: white;
+  height: 75px;
+  margin-bottom: 60px;
+}
+
+h2::before {
+  content: 'Application is currently running';
+  color: rgb(0, 200, 27);
+  transition: color 0.7s;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+button {
+  width: 70%;
+  height: 65px;
+  background-color: red;
+  color: white;
+  font-size: 2rem;
+  border-radius: 25px;
+  transition: background-color 0.7s;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+p {
+  font-size: 1.3rem;
+  transition: opacity 0.7s;
+}
+
+.deactivated-status::before {
+  content: 'Application is stopped';
+  color: rgb(185, 0, 0);
+}
+
+.deactivated-switcher {
+  background-color: rgb(0, 255, 38);
+}
+
+.no-display {
+  opacity: 0;
+}
